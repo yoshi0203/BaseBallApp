@@ -53,21 +53,61 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0HF-Ve-ccu">
+                                <rect key="frame" x="165" y="314" width="45" height="39"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" title="計算"/>
+                                <connections>
+                                    <action selector="calcButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RQa-bz-CZK"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="打率" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYK-3m-TCb">
+                                <rect key="frame" x="107" y="401.5" width="41" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" red="1" green="0.26170196620000002" blue="0.20897015769999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=".000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z8o-vk-pgH">
+                                <rect key="frame" x="216" y="401.5" width="43" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" red="1" green="0.26170196620000002" blue="0.20897015769999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
+                            <constraint firstItem="z8o-vk-pgH" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="80" id="2ot-Im-k0V"/>
                             <constraint firstItem="kpr-d5-T7u" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="50" id="4WK-IF-fvX"/>
                             <constraint firstItem="kpr-d5-T7u" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-150" id="5Bb-YO-lCe"/>
+                            <constraint firstItem="0HF-Ve-ccu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="6VS-gl-qDo"/>
                             <constraint firstItem="t0n-nU-m1m" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-200" id="BmG-hd-snM"/>
                             <constraint firstItem="t0n-nU-m1m" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-60" id="F4V-vz-hy5"/>
                             <constraint firstItem="qTW-Ee-5pF" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-60" id="Ii3-wy-eIF"/>
                             <constraint firstItem="x5a-D2-YxU" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-200" id="Lnq-bN-dx6"/>
+                            <constraint firstItem="eYK-3m-TCb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-60" id="OuK-FG-9bZ"/>
+                            <constraint firstItem="eYK-3m-TCb" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="80" id="VmM-OQ-mwd"/>
+                            <constraint firstItem="0HF-Ve-ccu" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="YYf-8n-4U4"/>
                             <constraint firstItem="x5a-D2-YxU" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="50" id="Z8p-CD-TVC"/>
                             <constraint firstItem="qTW-Ee-5pF" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-150" id="dVa-cd-Ovc"/>
+                            <constraint firstItem="z8o-vk-pgH" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="50" id="h6T-wK-BRN"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="RN4-pN-5Pb" appends="YES" id="L3M-0g-Qwi"/>
+                        </connections>
                     </view>
+                    <connections>
+                        <outlet property="atBats" destination="x5a-D2-YxU" id="3Sd-lC-fOM"/>
+                        <outlet property="atHits" destination="kpr-d5-T7u" id="AGu-fs-wID"/>
+                        <outlet property="calcAverage" destination="z8o-vk-pgH" id="GKX-Pw-2aV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="RN4-pN-5Pb">
+                    <connections>
+                        <action selector="tapView:" destination="BYZ-38-t0r" id="qd7-VY-qFq"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="137.18140929535232"/>
         </scene>
