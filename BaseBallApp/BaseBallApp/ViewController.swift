@@ -54,11 +54,11 @@ class ViewController: UIViewController {
             calcAverage.text = String(format: "%.3f" , 0)
 //        その他は小数第3位で四捨五入で表示
         }else{
-//            打率計算　＝　安打数/打席数
+//            打率計算　＝　安打数/打数
             let ansAvr = ((calcHits! * 100) / calcBats! ) * 0.01
             calcAverage.text = String( format: "%.3f" , round(ansAvr * 1000) * 0.001 )
             
-//            出塁率　＝　安打数+四球数+死球数　/　打席数+四球数+死球数+犠飛数
+//            出塁率　＝　安打数+四球数+死球数　/　打数+四球数+死球数+犠飛数
             let ansOBP = (((calcHits! + calcFB! + calcDB!) * 100) / (calcBats! + calcFB! + calcDB! + calcSF!)) * 0.01
             calcOBP.text = String( format: "%.3f" , round(ansOBP * 1000) * 0.001 )
         }
