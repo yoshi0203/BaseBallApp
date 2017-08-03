@@ -16,7 +16,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var atFourBall: UITextField!
     @IBOutlet weak var atDeadBall: UITextField!
     @IBOutlet weak var atSacrificeFly: UITextField!
+    @IBOutlet weak var cntTwoBase: NSLayoutConstraint!
+    @IBOutlet weak var cntThreeBase: UITextField!
+    @IBOutlet weak var cntHomeRun: UITextField!
     @IBOutlet weak var calcOBP: UILabel!
+    @IBOutlet weak var calcOPS: UILabel!
     
     @IBAction func calcButton(_ sender: Any) {
 //        入力がなかった場合0を入れる
@@ -61,9 +65,14 @@ class ViewController: UIViewController {
 //            出塁率　＝　安打数+四球数+死球数　/　打数+四球数+死球数+犠飛数
             let ansOBP = (((calcHits! + calcFB! + calcDB!) * 100) / (calcBats! + calcFB! + calcDB! + calcSF!)) * 0.01
             calcOBP.text = String( format: "%.3f" , round(ansOBP * 1000) * 0.001 )
+            
+//OPS計算機能を追加したい
         }
     }
     
+    @IBAction func rstBtn(_ sender: UIButton) {
+//リセット機能をつけたい
+    }
     //    画面タップでキーボードを隠す
     @IBAction func tapView(_ sender: UITapGestureRecognizer) {
         view.endEditing(true)
