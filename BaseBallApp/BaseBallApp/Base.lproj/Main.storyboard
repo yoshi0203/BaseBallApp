@@ -287,7 +287,7 @@
                         <outlet property="calcOPS" destination="fhC-Gb-ILL" id="sWh-Tr-sC7"/>
                         <outlet property="cntHomeRun" destination="F3G-vd-cSn" id="Kz4-p8-LZM"/>
                         <outlet property="cntThreeBase" destination="z4G-I3-eTg" id="zzM-Fg-YN1"/>
-                        <outlet property="cntTwoBase" destination="xsr-g1-mGQ" id="itw-D9-h8c"/>
+                        <outlet property="cntTwoBase" destination="7AN-Ir-QdM" id="ing-Sx-DpZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

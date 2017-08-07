@@ -10,17 +10,17 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var atBats: UITextField!
-    @IBOutlet weak var calcAverage: UILabel!
-    @IBOutlet weak var atHits: UITextField!
-    @IBOutlet weak var atFourBall: UITextField!
-    @IBOutlet weak var atDeadBall: UITextField!
-    @IBOutlet weak var atSacrificeFly: UITextField!
-    @IBOutlet weak var cntTwoBase: NSLayoutConstraint!
-    @IBOutlet weak var cntThreeBase: UITextField!
-    @IBOutlet weak var cntHomeRun: UITextField!
-    @IBOutlet weak var calcOBP: UILabel!
-    @IBOutlet weak var calcOPS: UILabel!
+    @IBOutlet weak var atBats: UITextField!          //打席数
+    @IBOutlet weak var calcAverage: UILabel!         //打率値
+    @IBOutlet weak var atHits: UITextField!          //安打数
+    @IBOutlet weak var atFourBall: UITextField!      //四球数
+    @IBOutlet weak var atDeadBall: UITextField!      //死球数
+    @IBOutlet weak var atSacrificeFly: UITextField!  //犠飛数
+    @IBOutlet weak var cntTwoBase: UITextField!      //二塁打数
+    @IBOutlet weak var cntThreeBase: UITextField!    //三塁打数
+    @IBOutlet weak var cntHomeRun: UITextField!      //本塁打数
+    @IBOutlet weak var calcOBP: UILabel!             //出塁率値
+    @IBOutlet weak var calcOPS: UILabel!             //OPS値
     
     @IBAction func calcButton(_ sender: Any) {
 //        入力がなかった場合0を入れる
@@ -29,6 +29,9 @@ class ViewController: UIViewController {
         let chkFB = atFourBall.text!
         let chkDB = atDeadBall.text!
         let chkSF = atSacrificeFly.text!
+        let chkTWB = cntTwoBase.text!
+        let chkTHB = cntThreeBase.text!
+        let chkHR = cntHomeRun.text!
         
         if chkBats == ""  {
             atBats.text = "0"
@@ -45,7 +48,15 @@ class ViewController: UIViewController {
         if chkSF == "" {
             atSacrificeFly.text = "0"
         }
-        
+        if chkTWB == "" {
+            cntTwoBase.text = "0"
+        }
+        if chkTHB == "" {
+            cntThreeBase.text = "0"
+        }
+        if chkHR == "" {
+            cntHomeRun.text = "0"
+        }
         
         let calcBats = Double(atBats.text!)
         let calcHits = Double(atHits.text!)
@@ -62,17 +73,27 @@ class ViewController: UIViewController {
             let ansAvr = ((calcHits! * 100) / calcBats! ) * 0.01
             calcAverage.text = String( format: "%.3f" , round(ansAvr * 1000) * 0.001 )
             
-//            出塁率　＝　安打数+四球数+死球数　/　打数+四球数+死球数+犠飛数
-            let ansOBP = (((calcHits! + calcFB! + calcDB!) * 100) / (calcBats! + calcFB! + calcDB! + calcSF!)) * 0.01
-            calcOBP.text = String( format: "%.3f" , round(ansOBP * 1000) * 0.001 )
-            
+//打数0で安打1以上の場合を追加したい
 //OPS計算機能を追加したい
+            
         }
+        //出塁率　＝　安打数+四球数+死球数　/　打数+四球数+死球数+犠飛数
+        let ansOBP = (((calcHits! + calcFB! + calcDB!) * 100) / (calcBats! + calcFB! + calcDB! + calcSF!)) * 0.01
+        calcOBP.text = String( format: "%.3f" , round(ansOBP * 1000) * 0.001 )
     }
     
     @IBAction func rstBtn(_ sender: UIButton) {
-//リセット機能をつけたい
+//リセット機能
+        atBats.text = "0"
+        atHits.text = "0"
+        atFourBall.text = "0"
+        atDeadBall.text = "0"
+        atSacrificeFly.text = "0"
+        cntTwoBase.text = "0"
+        cntThreeBase.text = "0"
+        cntHomeRun.text = "0"
     }
+    
     //    画面タップでキーボードを隠す
     @IBAction func tapView(_ sender: UITapGestureRecognizer) {
         view.endEditing(true)
