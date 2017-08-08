@@ -22,6 +22,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var calcOBP: UILabel!             //出塁率値
     @IBOutlet weak var calcOPS: UILabel!             //OPS値
     
+
+    
     @IBAction func calcButton(_ sender: Any) {
 //        入力がなかった場合0を入れる
         let chkBats = atBats.text!
@@ -64,26 +66,33 @@ class ViewController: UIViewController {
         let calcDB = Double(atDeadBall.text!)
         let calcSF = Double(atSacrificeFly.text!)
         
-//        打席数と安打数が0の場合にNaNになるのを防ぐ
+        
         if calcBats == 0 && calcHits == 0 {
-            calcAverage.text = String(format: "%.3f" , 0)
-//        その他は小数第3位で四捨五入で表示
-        }else{
-//            打率計算　＝　安打数/打数
-            let ansAvr = ((calcHits! * 100) / calcBats! ) * 0.01
-            calcAverage.text = String( format: "%.3f" , round(ansAvr * 1000) * 0.001 )
+            zeroAvr()
+            if calcFB == 0 && calcDB == 0 {
+                zeroOBP()
+            }else{
+                fncCalOBP(calHits:calcHits! , calBats:calcBats! , calFB:calcFB! ,calDB:calcDB! , calSF:calcSF!)
+            }
             
-//打数0で安打1以上の場合を追加したい
+        }else if (calcBats == 0 && Int(calcHits!) > 0)  {
+            zeroAvr()
+            zeroOBP()
+            
+        }else{
+            //打率計算
+            fncCalAvr(calHits: calcHits!,calBats: calcBats!)
+            //出塁率　＝　安打数+四球数+死球数　/　打数+四球数+死球数+犠飛数
+            fncCalOBP(calHits:calcHits! , calBats:calcBats! , calFB:calcFB! ,calDB:calcDB! , calSF:calcSF!)
+            
+
 //OPS計算機能を追加したい
             
         }
-        //出塁率　＝　安打数+四球数+死球数　/　打数+四球数+死球数+犠飛数
-        let ansOBP = (((calcHits! + calcFB! + calcDB!) * 100) / (calcBats! + calcFB! + calcDB! + calcSF!)) * 0.01
-        calcOBP.text = String( format: "%.3f" , round(ansOBP * 1000) * 0.001 )
     }
     
     @IBAction func rstBtn(_ sender: UIButton) {
-//リセット機能
+    //リセット機能
         atBats.text = "0"
         atHits.text = "0"
         atFourBall.text = "0"
@@ -94,11 +103,32 @@ class ViewController: UIViewController {
         cntHomeRun.text = "0"
     }
     
-    //    画面タップでキーボードを隠す
+    //画面タップでキーボードを隠す
     @IBAction func tapView(_ sender: UITapGestureRecognizer) {
         view.endEditing(true)
     }
-
+    
+    //打率計算　＝　安打数/打数
+    func fncCalAvr ( calHits:Double , calBats:Double ) -> Void {
+        let ansAvr = ((calHits * 100) / calBats ) * 0.01
+        calcAverage.text = String( format: "%.3f" , round(ansAvr * 1000) * 0.001 )
+    }
+    
+    //出塁率計算　＝　安打数+四球数+死球数　/　打数+四球数+死球数+犠飛数
+    func fncCalOBP (calHits:Double , calBats:Double , calFB:Double ,
+                    calDB:Double,calSF:Double) -> Void {
+        let ansOBP = (((calHits + calFB + calDB) * 100) / (calBats + calFB + calDB + calSF)) * 0.01
+        calcOBP.text = String( format: "%.3f" , round(ansOBP * 1000) * 0.001 )
+    }
+    
+    func zeroAvr() {
+        calcAverage.text = String(format: "%.3f" , 0)
+    }
+    
+    func zeroOBP() {
+        calcOBP.text = String(format: "%.3f" , 0)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
