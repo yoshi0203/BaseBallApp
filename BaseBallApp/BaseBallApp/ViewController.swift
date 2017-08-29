@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var cntThreeBase: UITextField!    //三塁打数
     @IBOutlet weak var cntHomeRun: UITextField!      //本塁打数
     @IBOutlet weak var calcOBP: UILabel!             //出塁率値
+    @IBOutlet weak var calcSluging: UILabel!         //長打率値
     @IBOutlet weak var calcOPS: UILabel!             //OPS値
     
 
@@ -65,10 +66,13 @@ class ViewController: UIViewController {
         let calcFB = Double(atFourBall.text!)
         let calcDB = Double(atDeadBall.text!)
         let calcSF = Double(atSacrificeFly.text!)
-        
+        let cntTWB = Double(cntTwoBase.text!)
+        let cntTHB = Double(cntThreeBase.text!)
+        let cntHR = Double(cntHomeRun.text!)
         
         if calcBats == 0 && calcHits == 0 {
             zeroAvr()
+            zeroSlug()
             if calcFB == 0 && calcDB == 0 {
                 zeroOBP()
             }else{
@@ -78,6 +82,7 @@ class ViewController: UIViewController {
         }else if (calcBats == 0 && Int(calcHits!) > 0)  {
             zeroAvr()
             zeroOBP()
+            zeroSlug()
             
         }else{
             //打率計算
@@ -85,7 +90,8 @@ class ViewController: UIViewController {
             //出塁率　＝　安打数+四球数+死球数　/　打数+四球数+死球数+犠飛数
             fncCalOBP(calHits:calcHits! , calBats:calcBats! , calFB:calcFB! ,calDB:calcDB! , calSF:calcSF!)
             
-
+//長打率計算機能追加
+            fncCalSlug(cnt2BH:cntTWB! , cnt3BH:cntTHB! , cntHR:cntHR! , calHits:calcHits! , calBats:calcBats!)
 //OPS計算機能を追加したい
             
         }
@@ -121,12 +127,23 @@ class ViewController: UIViewController {
         calcOBP.text = String( format: "%.3f" , round(ansOBP * 1000) * 0.001 )
     }
     
+    func fncCalSlug ( cnt2BH:Double , cnt3BH:Double , cntHR:Double ,
+                      calHits:Double , calBats:Double) -> Void {
+//        let cnt1BH = calHits - (cnt2BH + cnt3BH + cntHR)
+        let ansSlug = (calHits + cnt2BH + (cnt3BH * 2) + (cntHR * 3)) / calBats
+        calcSluging.text = String( format:"%.3f" , round(ansSlug * 1000) * 0.001 )
+    }
+    
     func zeroAvr() {
         calcAverage.text = String(format: "%.3f" , 0)
     }
     
     func zeroOBP() {
         calcOBP.text = String(format: "%.3f" , 0)
+    }
+    
+    func zeroSlug() {
+        calcSluging.text = String(format:"%.3f" , 0)
     }
     
     override func viewDidLoad() {
