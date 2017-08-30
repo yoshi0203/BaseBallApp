@@ -23,7 +23,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var calcSluging: UILabel!         //長打率値
     @IBOutlet weak var calcOPS: UILabel!             //OPS値
     
-
+    var ansOBP : Double = 0
+    var ansSlug : Double = 0
     
     @IBAction func calcButton(_ sender: Any) {
 //        入力がなかった場合0を入れる
@@ -73,6 +74,7 @@ class ViewController: UIViewController {
         if calcBats == 0 && calcHits == 0 {
             zeroAvr()
             zeroSlug()
+            zeroOPS()
             if calcFB == 0 && calcDB == 0 {
                 zeroOBP()
             }else{
@@ -83,6 +85,7 @@ class ViewController: UIViewController {
             zeroAvr()
             zeroOBP()
             zeroSlug()
+            zeroOPS()
             
         }else{
             //打率計算
@@ -93,7 +96,7 @@ class ViewController: UIViewController {
 //長打率計算機能追加
             fncCalSlug(cnt2BH:cntTWB! , cnt3BH:cntTHB! , cntHR:cntHR! , calHits:calcHits! , calBats:calcBats!)
 //OPS計算機能を追加したい
-            
+            fncOPS(OBP:ansOBP , Slug:ansSlug)
         }
     }
     
@@ -123,15 +126,18 @@ class ViewController: UIViewController {
     //出塁率計算　＝　安打数+四球数+死球数　/　打数+四球数+死球数+犠飛数
     func fncCalOBP (calHits:Double , calBats:Double , calFB:Double ,
                     calDB:Double,calSF:Double) -> Void {
-        let ansOBP = (((calHits + calFB + calDB) * 100) / (calBats + calFB + calDB + calSF)) * 0.01
+        ansOBP = (((calHits + calFB + calDB) * 100) / (calBats + calFB + calDB + calSF)) * 0.01
         calcOBP.text = String( format: "%.3f" , round(ansOBP * 1000) * 0.001 )
     }
     
     func fncCalSlug ( cnt2BH:Double , cnt3BH:Double , cntHR:Double ,
                       calHits:Double , calBats:Double) -> Void {
-//        let cnt1BH = calHits - (cnt2BH + cnt3BH + cntHR)
-        let ansSlug = (calHits + cnt2BH + (cnt3BH * 2) + (cntHR * 3)) / calBats
+        ansSlug = (calHits + cnt2BH + (cnt3BH * 2) + (cntHR * 3)) / calBats
         calcSluging.text = String( format:"%.3f" , round(ansSlug * 1000) * 0.001 )
+    }
+    
+    func fncOPS ( OBP:Double , Slug:Double ) -> Void {
+        calcOPS.text = String( format:"%.3f" , round( (OBP + Slug) * 1000 ) * 0.001 )
     }
     
     func zeroAvr() {
@@ -144,6 +150,10 @@ class ViewController: UIViewController {
     
     func zeroSlug() {
         calcSluging.text = String(format:"%.3f" , 0)
+    }
+    
+    func zeroOPS() {
+        calcOPS.text = String(format:"%.3f" , 0)
     }
     
     override func viewDidLoad() {
